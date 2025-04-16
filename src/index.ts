@@ -55,35 +55,34 @@ export function smartTrim(str: string, maxLength: number, options?: SmartTrimOpt
     return str;
   }
   
-  const finalOptions: Required<SmartTrimOptions> = {
+  const { suffix, preserveWholeWords, preservePunctuation }: Required<SmartTrimOptions> = {
     ...DEFAULT_OPTIONS,
     ...options
   };
   
-  const suffixLength = finalOptions.suffix.length;
-  const trimLength = maxLength - suffixLength;
+  const contentLength = maxLength - suffix.length;
   
-  if (trimLength <= 0) {
-    return finalOptions.suffix.substring(0, maxLength);
+  if (contentLength <= 0) {
+    return suffix.slice(0, maxLength);
   }
   
-  let trimmedStr = str.substring(0, trimLength);
+  let trimmedStr = str.slice(0, contentLength);
   
-  if (finalOptions.preserveWholeWords) {
-    const nextCharInOriginal = str.charAt(trimLength);
-    const isWordCutInMiddle = nextCharInOriginal !== '' && nextCharInOriginal !== ' ';
+  if (preserveWholeWords) {
+    const nextChar = str[contentLength];
+    const isMidWord = nextChar && nextChar !== ' ';
     
-    if (isWordCutInMiddle) {
+    if (isMidWord) {
       const lastSpaceIndex = trimmedStr.lastIndexOf(' ');
-      if (lastSpaceIndex !== -1) {
-        trimmedStr = trimmedStr.substring(0, lastSpaceIndex);
+      if (lastSpaceIndex !== -1) { // Found a space to trim back to
+        trimmedStr = trimmedStr.slice(0, lastSpaceIndex);
       }
     }
   }
   
-  if (!finalOptions.preservePunctuation) {
+  if (!preservePunctuation) {
     trimmedStr = trimmedStr.replace(PUNCTUATION_REGEX, '');
   }
   
-  return trimmedStr + finalOptions.suffix;
+  return trimmedStr + suffix;
 }
