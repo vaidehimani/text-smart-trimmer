@@ -14,13 +14,29 @@ pnpm add text-smart-trimmer
 
 ## Usage
 
+### ES Modules (recommended)
+
 ```typescript
 import { smartTrim } from 'text-smart-trimmer';
 
 // Basic usage with default options
 smartTrim('This is a long sentence that needs to be trimmed', 20);
 // Output: "This is a long..."
+```
 
+### CommonJS
+
+```javascript
+const { smartTrim } = require('text-smart-trimmer');
+
+// Basic usage with default options
+smartTrim('This is a long sentence that needs to be trimmed', 20);
+// Output: "This is a long..."
+```
+
+### Examples
+
+```typescript
 // Custom suffix
 smartTrim('This is a long sentence', 15, { suffix: ' [more]' });
 // Output: "This is [more]"
