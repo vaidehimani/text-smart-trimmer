@@ -1,0 +1,57 @@
+{
+  "name": "text-smart-trimmer",
+  "version": "1.0.0",
+  "description": "A utility library for intelligently trimming text with options for preserving whole words and handling punctuation",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "jest --config jest.config.cjs",
+    "lint": "eslint --config .eslintrc.cjs src --ext .ts",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "string",
+    "text",
+    "trim",
+    "truncate",
+    "ellipsis",
+    "utility"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.3.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/text-smart-trimmer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/text-smart-trimmer/issues"
+  },
+  "homepage": "https://github.com/yourusername/text-smart-trimmer#readme"
+}
