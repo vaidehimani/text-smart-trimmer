@@ -72,4 +72,49 @@ describe('smartTrim', () => {
     // Verify that it still trims correctly when cutting a word
     expect(smartTrim(input, 9)).toBe('One...');
   });
+
+  describe('input validation', () => {
+    test('throws TypeError if first argument is not a string', () => {
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim(123, 10)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim(null, 10)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim(undefined, 10)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim({}, 10)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim([], 10)).toThrow(TypeError);
+      
+      expect(() => smartTrim('Valid string', 10)).not.toThrow();
+    });
+
+    test('throws TypeError if second argument is not a non-negative integer', () => {
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim('Hello', '10')).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim('Hello', null)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim('Hello', undefined)).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim('Hello', {})).toThrow(TypeError);
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim('Hello', [])).toThrow(TypeError);
+
+      expect(() => smartTrim('Hello', 3.5)).toThrow(TypeError);
+      expect(() => smartTrim('Hello', -1)).toThrow(TypeError);
+      
+      // Valid non-negative numbers should not throw
+      expect(() => smartTrim('Hello', 0)).not.toThrow();
+      expect(() => smartTrim('Hello', 10)).not.toThrow();
+    });
+    
+    test('throws with correct error message', () => {
+      // @ts-expect-error - Testing runtime behavior with incorrect types
+      expect(() => smartTrim(123, 10)).toThrow('First argument must be a string');
+      expect(() => smartTrim('Hello', -5)).toThrow('Second argument must be a non-negative integer');
+       expect(() => smartTrim('Hello', 10.5)).toThrow('Second argument must be a non-negative integer');
+    });
+  });
 });
+

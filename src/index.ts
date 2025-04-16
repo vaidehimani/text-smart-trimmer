@@ -29,6 +29,11 @@ const DEFAULT_OPTIONS: Required<SmartTrimOptions> = {
 };
 
 /**
+ * Punctuation characters that can be removed when preservePunctuation is false
+ */
+const PUNCTUATION_REGEX = /[.,!?;:'")\]}]+$/;
+
+/**
  * Trims a string to a specified maximum length while preserving whole words
  * and handling punctuation as specified.
  * 
@@ -38,6 +43,14 @@ const DEFAULT_OPTIONS: Required<SmartTrimOptions> = {
  * @returns The trimmed string
  */
 export function smartTrim(str: string, maxLength: number, options?: SmartTrimOptions): string {
+  if (typeof str !== 'string') {
+    throw new TypeError('First argument must be a string');
+  }
+  
+  if (typeof maxLength !== 'number' || maxLength < 0 || !Number.isInteger(maxLength)) {
+    throw new TypeError('Second argument must be a non-negative integer');
+  }
+  
   if (str.length <= maxLength) {
     return str;
   }
@@ -57,7 +70,6 @@ export function smartTrim(str: string, maxLength: number, options?: SmartTrimOpt
   let trimmedStr = str.substring(0, trimLength);
   
   if (finalOptions.preserveWholeWords) {
-    // Only trim to the last space if we cut a word in the middle
     const nextCharInOriginal = str.charAt(trimLength);
     const isWordCutInMiddle = nextCharInOriginal !== '' && nextCharInOriginal !== ' ';
     
@@ -70,8 +82,7 @@ export function smartTrim(str: string, maxLength: number, options?: SmartTrimOpt
   }
   
   if (!finalOptions.preservePunctuation) {
-    // Remove trailing punctuation
-    trimmedStr = trimmedStr.replace(/[.,!?;:'")\]}]+$/, '');
+    trimmedStr = trimmedStr.replace(PUNCTUATION_REGEX, '');
   }
   
   return trimmedStr + finalOptions.suffix;
