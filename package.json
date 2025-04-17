@@ -13,12 +13,13 @@
   },
   "type": "module",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "test": "jest --config jest.config.cjs",
-    "lint": "eslint --config .eslintrc.cjs src --ext .ts",
-    "prepublishOnly": "npm run clean && npm run build && npm test"
-  },
+  "clean": "rimraf dist",
+  "build": "tsup src/index.ts --format esm,cjs --dts",
+  "test": "jest --config jest.config.cjs",
+  "test:coverage": "jest --config jest.config.cjs --coverage",
+  "lint": "eslint --config .eslintrc.cjs src --ext .ts",
+  "prepublishOnly": "npm run clean && npm run build && npm test"
+},
   "files": [
     "dist",
     "LICENSE",
