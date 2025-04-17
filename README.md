@@ -1,18 +1,29 @@
-# text-smart-trimmer
+# 📝 text-smart-trimmer
 
-A lightweight TypeScript utility library for intelligently trimming text strings. This library provides a smart way to truncate text to a specified length while preserving whole words and handling punctuation.
+A lightweight TypeScript utility library for intelligently trimming text strings. This library provides an easy way to trim text to specified lengths while preserving whole words or cutting mid-word, and handling punctuation. Perfect for summaries, previews, and UI components where clean text presentation matters.
 
-## Installation
+[![npm](https://img.shields.io/npm/v/text-smart-trimmer)](https://www.npmjs.com/package/text-smart-trimmer)
+[![build](https://img.shields.io/github/actions/workflow/status/vaidehimani/text-smart-trimmer/ci.yml?branch=main)](https://github.com/vaidehimani/text-smart-trimmer/actions)
+[![license](https://img.shields.io/github/license/vaidehimani/text-smart-trimmer)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-supported-blue?logo=typescript)](tsconfig.json)
+
+## ⚡ Installation
+
+Choose your package manager:
 
 ```bash
 npm install text-smart-trimmer
-# or
+```
+
+```bash
 yarn add text-smart-trimmer
-# or
+```
+
+```bash
 pnpm add text-smart-trimmer
 ```
 
-## Usage
+## 🚀 Usage
 
 ### ES Modules (recommended)
 
@@ -34,74 +45,79 @@ smartTrim('This is a long sentence that needs to be trimmed', 20);
 // Output: "This is a long..."
 ```
 
-### Examples
+## 💡 Examples
 
 ```typescript
+// Returns original string if shorter than maxLength
+smartTrim('Short text', 20); // "Short text"
+
 // Custom suffix
 smartTrim('This is a long sentence', 15, { suffix: ' [more]' });
 // Output: "This is [more]"
 
-// Disable whole word preservation
+// Cut words in the middle (disable whole word preservation)
 smartTrim('This is a long sentence', 12, { preserveWholeWords: false });
 // Output: "This is a lo..."
 
-// Disable punctuation preservation
+// Remove trailing punctuation
 smartTrim('This is a sentence, with punctuation.', 20, { preservePunctuation: false });
 // Output: "This is a sentence..."
 ```
 
-## API
+## 📋 API
 
-### `smartTrim(str: string, maxLength: number, options?: SmartTrimOptions): string`
+### smartTrim(str, maxLength, options?)
 
-Trims a string to a specified maximum length while preserving whole words and handling punctuation as specified.
+```typescript
+function smartTrim(
+  str: string,
+  maxLength: number,
+  options?: SmartTrimOptions
+): string
+```
 
 #### Parameters
 
-- `str`: The string to trim
-- `maxLength`: The maximum length of the resulting string (including suffix). Must be a non-negative integer.
-- `options`: Optional configuration object
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `str` | `string` | The text to trim |
+| `maxLength` | `number` | Maximum character length (including suffix) |
+| `options` | `SmartTrimOptions` | Optional configuration |
 
 #### SmartTrimOptions
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `suffix` | `string` | `"..."` | String to append at the end of trimmed text |
-| `preserveWholeWords` | `boolean` | `true` | Whether to preserve whole words when trimming |
-| `preservePunctuation` | `boolean` | `true` | Whether to preserve trailing punctuation when trimming |
+| `suffix` | `string` | `"..."` | Text to append after trimming |
+| `preserveWholeWords` | `boolean` | `true` | Keep words intact or cut mid-word |
+| `preservePunctuation` | `boolean` | `true` | Keep or remove trailing punctuation |
 
-## Behavior Notes
+## ✨ Key Features
 
-### Preserving Whole Words
+- **Smart word handling**: Automatically trims at word boundaries (configurable)
+- **Customizable suffix**: Use any string as the truncation indicator
+- **Punctuation awareness**: Intelligently handles trailing punctuation
+- **Thoroughly tested**: Handles all edge cases reliably
+- **Zero dependencies**: Lightweight and efficient
+- **TypeScript ready**: Full type definitions included
 
-When `preserveWholeWords` is `true` (default):
-- The function will trim back to the last space to avoid cutting words in the middle
-- If the string has no spaces (e.g., a single long word like "Supercalifragilisticexpialidocious"), only the suffix will be returned
-- This ensures words are never cut in the middle
+## 🧩 Behavior Details
 
-### Suffix Handling
+- Returns the original string if it's already shorter than `maxLength`
+- Truncates the suffix if `maxLength` is smaller than the suffix length
+- When `preserveWholeWords` is enabled with very long words, returns only the suffix
+- Strict input validation ensures predictable behavior
 
-- If `maxLength` is less than the length of the suffix, the suffix will be truncated
-- If the suffix would take up the entire allowed length, only the suffix (possibly truncated) will be returned
+## 📦 Why Use This Library?
 
-### Punctuation
+While text trimming seems simple, handling all the edge cases correctly can be tricky:
 
-When `preservePunctuation` is `false`:
-- Trailing punctuation like periods, commas, question marks, etc. will be removed before adding the suffix
-- This helps avoid awkward results like "Hello world,..."
+- What if there are no spaces?
+- How should punctuation be handled?
+- What if the max length is very small?
 
-### Input Validation
+This library has been thoroughly tested against dozens of edge cases so you don't have to worry about them.
 
-The function performs strict input validation:
-- `str` must be a string
-- `maxLength` must be a non-negative integer (decimal values are not accepted)
-
-## Edge Cases
-
-- **Empty strings**: Returned unchanged
-- **Single long words**: When `preserveWholeWords` is `true`, only the suffix is returned
-- **Very short maxLength**: If maxLength is less than the suffix length, the suffix is truncated
-
-## License
+## 📄 License
 
 MIT
