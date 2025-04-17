@@ -7,6 +7,8 @@ A lightweight TypeScript utility library for intelligently trimming text strings
 [![license](https://img.shields.io/github/license/vaidehimani/text-smart-trimmer)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-supported-blue?logo=typescript)](tsconfig.json)
 
+📦 [View on npm](https://www.npmjs.com/package/text-smart-trimmer)
+
 ## ⚡ Installation
 
 Choose your package manager:
