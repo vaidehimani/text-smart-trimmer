@@ -1,6 +1,6 @@
 {
   "name": "text-smart-trimmer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility library for intelligently trimming text with options for preserving whole words and handling punctuation",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
