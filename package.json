@@ -47,10 +47,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/text-smart-trimmer.git"
+    "url": "https://github.com/vaidehimani/text-smart-trimmer.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/text-smart-trimmer/issues"
+    "url": "https://github.com/vaidehimani/text-smart-trimmer/issues"
   },
-  "homepage": "https://github.com/yourusername/text-smart-trimmer#readme"
+  "homepage": "https://github.com/vaidehimani/text-smart-trimmer#readme"
 }
