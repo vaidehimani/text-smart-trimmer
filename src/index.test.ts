@@ -43,11 +43,10 @@ describe('smartTrim', () => {
       .toBe('This is a sentence...');
   });
 
-  test('handles very short maxLength values', () => {
-    const input = 'Hello world';
-    expect(smartTrim(input, 2)).toBe('..');
-    expect(smartTrim(input, 1)).toBe('.');
-  });
+  test('handles suffix longer than maxLength', () => {
+  expect(smartTrim('Hello world', 5, { suffix: '... read more' })).toBe('... r');
+  expect(smartTrim('Hello world', 3, { suffix: '... read more' })).toBe('...');
+});
 
   test('works with all options specified', () => {
     const input = 'This is a longer sentence that needs trimming!';
@@ -72,6 +71,36 @@ describe('smartTrim', () => {
     // Verify that it still trims correctly when cutting a word
     expect(smartTrim(input, 9)).toBe('One...');
   });
+
+  test('returns empty string when input is empty', () => {
+  expect(smartTrim('', 10)).toBe('');
+  });
+
+test('trims input containing only whitespace', () => {
+  expect(smartTrim('     ', 3)).toBe('...');
+});
+
+test('handles string made of only punctuation', () => {
+  expect(smartTrim('!!!???...', 5, { preservePunctuation: false }))
+    .toBe('...');
+});
+
+test('handles whitespace before punctuation correctly', () => {
+  const input = 'This is a , test , ';
+  expect(smartTrim(input, 15, { preservePunctuation: false })).toBe('This is a ...');
+  expect(smartTrim(input, 15, { preservePunctuation: true })).toBe('This is a ,...');
+});
+
+test('returns string unchanged when its length is exactly maxLength', () => {
+  const input = 'Perfect length';
+  expect(smartTrim(input, input.length)).toBe(input);
+});
+
+test('handles strings with no spaces gracefully', () => {
+  const input = 'Supercalifragilisticexpialidocious';
+  expect(smartTrim(input, 10)).toBe('...');
+  expect(smartTrim(input, 10, { preserveWholeWords: false })).toBe('Superca...');
+});
 
   describe('input validation', () => {
     test('throws TypeError if first argument is not a string', () => {

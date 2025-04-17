@@ -69,16 +69,14 @@ export function smartTrim(str: string, maxLength: number, options?: SmartTrimOpt
   let trimmedStr = str.slice(0, contentLength);
   
   if (preserveWholeWords) {
-    const nextChar = str[contentLength];
-    const isMidWord = nextChar && nextChar !== ' ';
-    
-    if (isMidWord) {
-      const lastSpaceIndex = trimmedStr.lastIndexOf(' ');
-      if (lastSpaceIndex !== -1) { // Found a space to trim back to
-        trimmedStr = trimmedStr.slice(0, lastSpaceIndex);
-      }
-    }
+  const nextChar = str[contentLength];
+  const isMidWord = nextChar && nextChar !== ' ';
+  
+  if (isMidWord) {
+    const lastSpaceIndex = trimmedStr.lastIndexOf(' '); // Find a space to trim back to
+    trimmedStr = lastSpaceIndex !== -1 ? trimmedStr.slice(0, lastSpaceIndex) : "";
   }
+}
   
   if (!preservePunctuation) {
     trimmedStr = trimmedStr.replace(PUNCTUATION_REGEX, '');
