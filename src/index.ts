@@ -95,5 +95,5 @@ export function smartTrim(
     trimmedStr = trimmedStr.replace(PUNCTUATION_REGEX, "");
   }
 
-  return trimmedStr + suffix;
+  return trimmedStr.trimEnd() + suffix;
 }

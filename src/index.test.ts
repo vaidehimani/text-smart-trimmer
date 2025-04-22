@@ -97,10 +97,17 @@ describe("smartTrim", () => {
   test("handles whitespace before punctuation correctly", () => {
     const input = "This is a , test , ";
     expect(smartTrim(input, 15, { preservePunctuation: false })).toBe(
-      "This is a ...",
+      "This is a...",
     );
     expect(smartTrim(input, 15, { preservePunctuation: true })).toBe(
       "This is a ,...",
+    );
+  });
+
+  test("handles trailing whitespace", () => {
+    const input = "This is a test , ";
+    expect(smartTrim(input, 13)).toBe(
+      "This is a...",
     );
   });
 

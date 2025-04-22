@@ -60,11 +60,11 @@ smartTrim('This is a long sentence', 15, { suffix: ' [more]' });
 // Output: "This is [more]"
 
 // Cut words in the middle (disable whole word preservation)
-smartTrim('This is a long sentence', 12, { preserveWholeWords: false });
+smartTrim('This is a long sentence', 15, { preserveWholeWords: false });
 // Output: "This is a lo..."
 
 // Remove trailing punctuation
-smartTrim('This is a sentence, with punctuation.', 20, { preservePunctuation: false });
+smartTrim('This is a sentence, with punctuation.', 22, { preservePunctuation: false });
 // Output: "This is a sentence..."
 ```
 
